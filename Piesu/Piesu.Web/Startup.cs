@@ -35,7 +35,9 @@ namespace Piesu.Web
             //    .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddDbContext<IdentityDataContext>(options =>
                   options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<IdentityDataContext>();
+            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<IdentityDataContext>();
             services.AddControllers();
             services.AddControllersWithViews();
             services.AddRazorPages();
@@ -44,7 +46,7 @@ namespace Piesu.Web
                 // Password settings.
                 options.Password.RequireDigit = true;
                 options.Password.RequireLowercase = true;
-                options.Password.RequireNonAlphanumeric = true;
+                options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireUppercase = true;
                 options.Password.RequiredLength = 6;
                 options.Password.RequiredUniqueChars = 1;

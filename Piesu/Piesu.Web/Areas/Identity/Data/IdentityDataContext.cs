@@ -14,10 +14,6 @@ namespace Piesu.Web.Areas.Identity.Data
             : base(options)
         {
         }
-        // public IdentityDataContext()
-        //  : base()
-        // {
-        // }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
