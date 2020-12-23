@@ -10,7 +10,7 @@ using Piesu.Web.Areas.Identity.Data;
 namespace Piesu.Web.Migrations
 {
     [DbContext(typeof(IdentityDataContext))]
-    [Migration("20201223210711_CreateIdentitySchema")]
+    [Migration("20201223213421_CreateIdentitySchema")]
     partial class CreateIdentitySchema
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
