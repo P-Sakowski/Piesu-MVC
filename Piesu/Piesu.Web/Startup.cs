@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,6 +13,7 @@ using Piesu.Web.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Piesu.Web
@@ -80,7 +82,7 @@ namespace Piesu.Web
     }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider services)
         {
             if (env.IsDevelopment())
             {
@@ -107,6 +109,43 @@ namespace Piesu.Web
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+            CreateUserRoles(services).Wait();
+        }
+
+        private async Task CreateUserRoles(IServiceProvider serviceProvider)
+        {
+            // Initializing custom roles   
+            var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            var UserManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+
+            string[] roleNames = { "Admin", "Moderator", "User" };
+            IdentityResult roleResult;
+
+            foreach (var roleName in roleNames)
+            {
+                var roleExist = await RoleManager.RoleExistsAsync(roleName);
+                if (!roleExist)
+                {
+                    //create the roles and seed them to the database
+                    roleResult = await RoleManager.CreateAsync(new IdentityRole(roleName));
+                }
+            }
+
+            // Assign Admin role to newly registered user
+            string AdminEmail = "admin@piesu.pl";
+            string AdminPassword = "Password123#";
+            ApplicationUser user = await UserManager.FindByEmailAsync(AdminEmail);
+            if(user == null)
+            {
+                user = new ApplicationUser { UserName = AdminEmail, Email = AdminEmail };
+                _ = await UserManager.CreateAsync(user, AdminPassword);
+                var code = await UserManager.GenerateEmailConfirmationTokenAsync(user);
+                _ = await UserManager.ConfirmEmailAsync(user, code);
+            }
+            if(await UserManager.IsInRoleAsync(user, "Admin") == false)
+            {
+                await UserManager.AddToRoleAsync(user, "Admin");
+            }
         }
     }
 }
