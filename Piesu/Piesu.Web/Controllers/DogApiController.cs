@@ -16,10 +16,10 @@ namespace Piesu.Web.Controllers
     [Route("api/[controller]")]
     public class DogApiController : ControllerBase
     {
-        private readonly ApplicationDbContext _dbContext;
+        private readonly IdentityDataContext _dbContext;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public DogApiController(ApplicationDbContext dbContext, UserManager<ApplicationUser> userManager)
+        public DogApiController(IdentityDataContext dbContext, UserManager<ApplicationUser> userManager)
         {
             _dbContext = dbContext;
             _userManager = userManager;
@@ -27,7 +27,7 @@ namespace Piesu.Web.Controllers
         
         [HttpPost]
         public AddNewDogResponse Post([FromBody] JsonElement dogJson)
-        {    
+        {
             bool requestSuccessful;
             var currentUserId = _userManager.GetUserId(User); 
             var data = JObject.Parse(dogJson.ToString());
@@ -49,7 +49,7 @@ namespace Piesu.Web.Controllers
             {
                 requestSuccessful = false;
             }
-          
+
             AddNewDogResponse result = new AddNewDogResponse
             {
                 IsSuccessful = requestSuccessful
