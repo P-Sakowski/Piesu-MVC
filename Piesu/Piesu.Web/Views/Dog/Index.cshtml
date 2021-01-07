@@ -1,10 +1,35 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
+@model List<Piesu.Web.Entities.DogEntity> 
 @{
     ViewData["Title"] = "My puppies";
 }
 <div class="text-center">
     <h2>My puppies</h2>
+    
+    <div>
+        <table class="table">
+            <thead>
+                <tr>
+                  <th scope="col">Name</th>
+                  <th scope="col">Description</th>
+                  <th scope="col">Breed</th>
+                </tr>
+              </thead>
+        
+            <tbody>
+                @foreach (var dog in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => dog.Name)</td>
+                        <td>@Html.DisplayFor(modelItem => dog.Description)</td>
+                        <td>@Html.DisplayFor(modelItem => dog.Breed)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
     <a class="btn btn-primary btn-lg btn-block" asp-area="" asp-controller="Dog" asp-action="New">Add new dog</a>
 </div>

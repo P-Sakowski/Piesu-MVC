@@ -1,9 +1,9 @@
 (function () {
     const alertSuccessElement = document.getElementById("success-alert");
     const alertFailureElement = document.getElementById("failure-alert");
-    const formElement = document.forms[0];
+    const formElement = document.forms[1];
 
-    const addNewItem = async () => {
+    const addNewDog = async () => {
         const requestData = {
             name: formElement.elements.namedItem('Name').value,
             description: formElement.elements.namedItem('Description').value,
@@ -32,7 +32,7 @@
     window.addEventListener("load", () => {
         formElement.addEventListener("submit", event => {
             event.preventDefault();
-            addNewItem().then(() => console.log("added successfully"));
+            addNewDog().then(() => console.log("added successfully"));
         });
     });
 })(); 

@@ -6,17 +6,29 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
+using Piesu.Web.Areas.Identity.Data;
 
 namespace Piesu.Web.Controllers
 {
     public class DogController : Controller
     {
+        private readonly IdentityDataContext _dbContext;
+        private readonly UserManager<ApplicationUser> _userManager;
+        
+        public DogController(IdentityDataContext dbContext, UserManager<ApplicationUser> userManager)
+        {
+            _dbContext = dbContext;
+            _userManager = userManager;
+        }
+        
         [Authorize(Roles = "Admin, Moderator, User")]
         public IActionResult Index()
         {
-            return View();
+            var dogs = _dbContext.Dogs.Where(x => x.UserId == _userManager.GetUserId(User)).ToList();
+            return View(dogs);
         }
-        
+
         [HttpGet]
         [Authorize(Roles = "Admin, Moderator, User")]
         public IActionResult New()
