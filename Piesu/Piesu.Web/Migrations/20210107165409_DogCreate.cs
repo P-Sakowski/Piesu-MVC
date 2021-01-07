@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Piesu.Web.Migrations
 {
-    public partial class CreateIdentitySchema : Migration
+    public partial class DogCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -45,6 +45,23 @@ namespace Piesu.Web.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Dogs",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    Breed = table.Column<string>(nullable: true),
+                    BirthYear = table.Column<int>(nullable: false),
+                    UserId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Dogs", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -209,6 +226,9 @@ namespace Piesu.Web.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "Dogs");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
