@@ -1,15 +1,15 @@
 (function () {
-    const alertSuccessElement = document.getElementById("success-alert-add");
+    const alertSuccessElement = document.getElementById("success-alert-delete");
     const alertFailureElement = document.getElementById("failure-alert");
-    const formElement = document.forms[1];
-
-    const addNewBreed = async () => {
+    const buttons = document.getElementsByClassName("btn btn-danger");
+    
+    const deleteBreed = async (clickedBtn) => {
         const requestData = {
-            name: formElement.elements.namedItem('Name').value
+            id: clickedBtn.parentNode.parentNode.getElementsByClassName("Id")[0].id
         };
 
         const response = await fetch('/api/BreedApi', {
-            method: 'POST',
+            method: 'DELETE',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
@@ -27,10 +27,12 @@
         }
     };
 
-    window.addEventListener("load", () => {
-        formElement.addEventListener("submit", event => {
-            event.preventDefault();
-            addNewBreed().then(() => console.log("added successfully"));
-        });
+    window.addEventListener("DOMContentLoaded", () => {
+        for (let index = 0; index < buttons.length; index++) {
+            buttons[index].addEventListener("click", event => {
+                event.preventDefault();
+                deleteBreed(event.target).then(() => console.log("deleted successfully"));
+            });
+        }
     });
 })(); 

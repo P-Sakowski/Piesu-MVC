@@ -51,5 +51,32 @@ namespace Piesu.Web.Controllers
 
             return result;
         }
+
+        [HttpDelete]
+        public DeleteBreedResponse Delete([FromBody] JsonElement breedJson)
+        {
+            bool requestSuccessful;
+            var data = JObject.Parse(breedJson.ToString());
+            var id = (int)data["id"];
+            var entity = _dbContext.Breeds.Find(id);
+
+            try
+            {
+                _dbContext.Breeds.Remove(entity);
+                _dbContext.SaveChanges();
+                requestSuccessful = true;
+            }
+            catch
+            {
+                requestSuccessful = false;
+            }
+
+            DeleteBreedResponse result = new DeleteBreedResponse
+            {
+                IsSuccessful = requestSuccessful
+            };
+
+            return result;
+        }
     }
 }
