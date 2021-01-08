@@ -10,8 +10,8 @@ using Piesu.Web.Areas.Identity.Data;
 namespace Piesu.Web.Migrations
 {
     [DbContext(typeof(IdentityDataContext))]
-    [Migration("20210107165409_DogCreate")]
-    partial class DogCreate
+    [Migration("20210107221841_BreedCreate")]
+    partial class BreedCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -222,6 +222,21 @@ namespace Piesu.Web.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("Piesu.Web.Entities.BreedEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Breeds");
                 });
 
             modelBuilder.Entity("Piesu.Web.Entities.DogEntity", b =>

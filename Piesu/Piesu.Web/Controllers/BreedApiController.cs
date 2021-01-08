@@ -1,0 +1,55 @@
+using Microsoft.AspNetCore.Mvc;
+using Piesu.Web.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.Json;
+using Microsoft.AspNetCore.Identity;
+using Newtonsoft.Json.Linq;
+using Piesu.Web.Areas.Identity.Data;
+using Piesu.Web.Data;
+using Piesu.Web.Entities;
+
+namespace Piesu.Web.Controllers
+{    
+    [ApiController]
+    [Route("api/[controller]")]
+    public class BreedApiController : ControllerBase
+    {
+        private readonly IdentityDataContext _dbContext;
+
+        public BreedApiController(IdentityDataContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
+        
+        [HttpPost]
+        public AddNewBreedResponse Post([FromBody] JsonElement breedJson)
+        {
+            bool requestSuccessful;
+            var data = JObject.Parse(breedJson.ToString());
+            var entity = new BreedEntity
+            {
+                Name = (string) data["name"],
+            };
+
+            try
+            {
+                _dbContext.Breeds.Add(entity);
+                _dbContext.SaveChanges();
+                requestSuccessful = true;
+            }
+            catch
+            {
+                requestSuccessful = false;
+            }
+
+            AddNewBreedResponse result = new AddNewBreedResponse
+            {
+                IsSuccessful = requestSuccessful
+            };
+
+            return result;
+        }
+    }
+}
