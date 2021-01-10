@@ -35,13 +35,15 @@ namespace Piesu.Web.Controllers
         [Authorize(Roles = "Admin")]
         public IActionResult User()
         {
-            var users = _userManager.Users.ToList();
+            var allUsers = _userManager.Users.ToList();
+            var moderators = _userManager.GetUsersInRoleAsync("Moderator").Result;
+            var users = allUsers.Except(moderators).ToList();
             return View(users);
         }
         [Authorize(Roles = "Admin")]
         public IActionResult Moderator()
         {
-            var moderators = _userManager.GetUsersInRoleAsync("Moderator").Result;
+            var moderators = _userManager.GetUsersInRoleAsync("Moderator").Result.ToList();
             return View(moderators);
         }
 

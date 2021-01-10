@@ -25,7 +25,7 @@
 <div class="text-center">
     <h2>Revoke moderator permissions</h2>
     <div>
-        <div id="success-alert-add" class="alert alert-success" style="display: none">Role revoked successfully</div>
+        <div id="success-alert" class="alert alert-success" style="display: none">Role revoked successfully</div>
         <div id="failure-alert" class="alert alert-danger" style="display: none">Oops, something went wrong</div>
         <table class="table">
             <thead>
@@ -43,7 +43,7 @@
                         <td class="Id" id="@user.Id">@Html.DisplayFor(modelItem => user.Id)</td>
                         <td>@Html.DisplayFor(modelItem => user.Email)</td>
                         <td>
-                            <button type="button" class="btn btn-danger">Revoke Moderator premissions</button>
+                            <button data-id="@user.Id" type="button" class="btn btn-danger revokeRole">Revoke Moderator premissions</button>
                         </td>
                     </tr>
                 }
@@ -51,3 +51,6 @@
         </table>
     </div>
 </div>
+@section Scripts {
+    <script src="~/js/revokeRole.js"></script>
+}
