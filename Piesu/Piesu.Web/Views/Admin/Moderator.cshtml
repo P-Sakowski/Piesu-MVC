@@ -1,6 +1,7 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
+@model List<Piesu.Web.Areas.Identity.Data.ApplicationUser>
 @{
     ViewData["Title"] = "Admin Dashboard";
 }
@@ -22,5 +23,31 @@
     </div>
 </nav>
 <div class="text-center">
-    <h2>Grant or revoke 'moderator' permissions</h2>
+    <h2>Revoke moderator permissions</h2>
+    <div>
+        <div id="success-alert-add" class="alert alert-success" style="display: none">Role revoked successfully</div>
+        <div id="failure-alert" class="alert alert-danger" style="display: none">Oops, something went wrong</div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">E-Mail</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var user in Model)
+                {
+                    <tr>
+                        <td class="Id" id="@user.Id">@Html.DisplayFor(modelItem => user.Id)</td>
+                        <td>@Html.DisplayFor(modelItem => user.Email)</td>
+                        <td>
+                            <button type="button" class="btn btn-danger">Revoke Moderator premissions</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>
