@@ -33,7 +33,7 @@ namespace Piesu.Web.Controllers
                     Name = dog.Name,
                     Description = dog.Description,
                     BirthYear = dog.BirthYear,
-                    Breed = dog.Breed.Name
+                    Breed = _dbContext.Breeds.Where(breed => breed.Id.ToString() == dog.BreedId).FirstOrDefault().Name
                 }).ToList();
     
             return View(dogs);
@@ -54,7 +54,6 @@ namespace Piesu.Web.Controllers
      
             return View();
         }
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
