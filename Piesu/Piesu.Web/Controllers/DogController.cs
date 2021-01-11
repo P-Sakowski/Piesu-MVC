@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Piesu.Web.Areas.Identity.Data;
 
 namespace Piesu.Web.Controllers
@@ -33,6 +34,15 @@ namespace Piesu.Web.Controllers
         [Authorize(Roles = "Admin, Moderator, User")]
         public IActionResult New()
         {
+            var breeds = _dbContext.Dogs.Select(breed => 
+                new SelectListItem 
+                {
+                    Value = breed.Name,
+                    Text =  breed.Name
+                }).ToList();
+            
+            ViewData["AvailableBreeds"] = breeds;
+     
             return View();
         }
 
