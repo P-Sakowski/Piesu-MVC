@@ -13,10 +13,9 @@
         <input asp-for="Description" class="form-control" />
     </div>
     
-    @* TODO change to select when breed's list is available   *@
     <div class="form-group">
-        <label asp-for="Breed">Select your puppy's breed</label>
-        <input asp-for="Breed" class="form-control" />
+        <label asp-for="BreedId">Select your puppy's breed</label>
+        <select asp-for="BreedId" asp-items="@ViewData["AvailableBreeds"] as List<SelectListItem>" class="form-control" name="Breed"></select>
     </div>
     <div class="form-group">
         <input class="btn btn-primary" type="submit" value="Add new puppy!" />

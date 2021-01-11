@@ -10,8 +10,8 @@ using Piesu.Web.Areas.Identity.Data;
 namespace Piesu.Web.Migrations
 {
     [DbContext(typeof(IdentityDataContext))]
-    [Migration("20210107221841_BreedCreate")]
-    partial class BreedCreate
+    [Migration("20210111202511_DogCreateUpdate")]
+    partial class DogCreateUpdate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -249,7 +249,7 @@ namespace Piesu.Web.Migrations
                     b.Property<int>("BirthYear")
                         .HasColumnType("int");
 
-                    b.Property<string>("Breed")
+                    b.Property<string>("BreedId")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")

@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Piesu.Web.Areas.Identity.Data;
 
 namespace Piesu.Web.Controllers
@@ -25,17 +26,35 @@ namespace Piesu.Web.Controllers
         [Authorize(Roles = "Admin, Moderator, User")]
         public IActionResult Index()
         {
-            var dogs = _dbContext.Dogs.Where(x => x.UserId == _userManager.GetUserId(User)).ToList();
+            var dogs = _dbContext.Dogs.Where(dog => dog.UserId == _userManager.GetUserId(User))
+                .OrderBy(dog => dog.Name)
+                .Select(dog => new DogViewModel
+                {
+                    Name = dog.Name,
+                    Description = dog.Description,
+                    BirthYear = dog.BirthYear,
+                    Breed = _dbContext.Breeds.FirstOrDefault(breed => breed.Id.ToString() == dog.BreedId).Name
+                }).ToList();
+    
             return View(dogs);
         }
 
         [HttpGet]
         [Authorize(Roles = "Admin, Moderator, User")]
+ 
         public IActionResult New()
         {
+            var breeds = _dbContext.Breeds.Select(breed => 
+                new SelectListItem 
+                {
+                    Value = breed.Id.ToString(),
+                    Text =  breed.Name
+                }).ToList();
+            
+            ViewData["AvailableBreeds"] = breeds;
+     
             return View();
         }
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
