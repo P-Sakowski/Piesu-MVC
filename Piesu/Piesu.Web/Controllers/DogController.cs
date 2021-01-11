@@ -33,7 +33,7 @@ namespace Piesu.Web.Controllers
                     Name = dog.Name,
                     Description = dog.Description,
                     BirthYear = dog.BirthYear,
-                    Breed = _dbContext.Breeds.Where(breed => breed.Id.ToString() == dog.BreedId).FirstOrDefault().Name
+                    Breed = _dbContext.Breeds.FirstOrDefault(breed => breed.Id.ToString() == dog.BreedId).Name
                 }).ToList();
     
             return View(dogs);
@@ -41,6 +41,7 @@ namespace Piesu.Web.Controllers
 
         [HttpGet]
         [Authorize(Roles = "Admin, Moderator, User")]
+ 
         public IActionResult New()
         {
             var breeds = _dbContext.Breeds.Select(breed => 
