@@ -26,7 +26,16 @@ namespace Piesu.Web.Controllers
         [Authorize(Roles = "Admin, Moderator, User")]
         public IActionResult Index()
         {
-            var dogs = _dbContext.Dogs.Where(x => x.UserId == _userManager.GetUserId(User)).ToList();
+            var dogs = _dbContext.Dogs.Where(dog => dog.UserId == _userManager.GetUserId(User))
+                .OrderBy(dog => dog.Name)
+                .Select(dog => new DogViewModel
+                {
+                    Name = dog.Name,
+                    Description = dog.Description,
+                    BirthYear = dog.BirthYear,
+                    Breed = dog.Breed.Name
+                }).ToList();
+    
             return View(dogs);
         }
 
@@ -34,10 +43,10 @@ namespace Piesu.Web.Controllers
         [Authorize(Roles = "Admin, Moderator, User")]
         public IActionResult New()
         {
-            var breeds = _dbContext.Dogs.Select(breed => 
+            var breeds = _dbContext.Breeds.Select(breed => 
                 new SelectListItem 
                 {
-                    Value = breed.Name,
+                    Value = breed.Id.ToString(),
                     Text =  breed.Name
                 }).ToList();
             
