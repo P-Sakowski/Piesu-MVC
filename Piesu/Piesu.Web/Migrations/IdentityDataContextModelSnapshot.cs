@@ -247,7 +247,7 @@ namespace Piesu.Web.Migrations
                     b.Property<int>("BirthYear")
                         .HasColumnType("int");
 
-                    b.Property<string>("Breed")
+                    b.Property<string>("BreedId")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
