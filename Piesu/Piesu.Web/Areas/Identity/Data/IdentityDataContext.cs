@@ -17,6 +17,7 @@ namespace Piesu.Web.Areas.Identity.Data
         }
 
         public DbSet<DogEntity> Dogs { get;  set; }
+        public DbSet<BreedEntity> Breeds { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

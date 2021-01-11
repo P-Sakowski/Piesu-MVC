@@ -35,7 +35,7 @@ namespace Piesu.Web.Controllers
             {
                 Name = (string) data["name"],
                 Description = (string) data["description"],
-                Breed = (string) data["breed"],
+                BreedId = (string) data["breed"],
                 UserId = currentUserId
             };
 

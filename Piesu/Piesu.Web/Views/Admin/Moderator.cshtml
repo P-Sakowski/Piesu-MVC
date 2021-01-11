@@ -1,0 +1,56 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model List<Piesu.Web.Areas.Identity.Data.ApplicationUser>
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+    <div class="container">
+        <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+            <ul class="navbar-nav flex-grow-1">
+                <li class="nav-item">
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="User"> Users </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Moderator">Moderators</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Breed">Breeds</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="text-center">
+    <h2>Revoke moderator permissions</h2>
+    <div>
+        <div id="success-alert" class="alert alert-success" style="display: none">Role revoked successfully</div>
+        <div id="failure-alert" class="alert alert-danger" style="display: none">Oops, something went wrong</div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">E-Mail</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var user in Model)
+                {
+                    <tr>
+                        <td class="Id" id="@user.Id">@Html.DisplayFor(modelItem => user.Id)</td>
+                        <td>@Html.DisplayFor(modelItem => user.Email)</td>
+                        <td>
+                            <button data-id="@user.Id" type="button" class="btn btn-danger revokeRole">Revoke Moderator premissions</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+@section Scripts {
+    <script src="~/js/revokeRole.js"></script>
+}

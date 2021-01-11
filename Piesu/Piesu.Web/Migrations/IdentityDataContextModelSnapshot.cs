@@ -222,6 +222,21 @@ namespace Piesu.Web.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("Piesu.Web.Entities.BreedEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Breeds");
+                });
+
             modelBuilder.Entity("Piesu.Web.Entities.DogEntity", b =>
                 {
                     b.Property<int>("Id")
@@ -232,7 +247,7 @@ namespace Piesu.Web.Migrations
                     b.Property<int>("BirthYear")
                         .HasColumnType("int");
 
-                    b.Property<string>("Breed")
+                    b.Property<string>("BreedId")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")

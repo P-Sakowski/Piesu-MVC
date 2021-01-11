@@ -1,0 +1,71 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model List<Piesu.Web.Entities.BreedEntity>
+    @{
+        ViewData["Title"] = "Admin Dashboard";
+    }
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <div class="container">
+            <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="User">Users</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Moderator">Moderators</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Breed">Breeds</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="text-center">
+        <h2>Add and delete existing breeds</h2>
+        <div>
+            <div id="success-alert-add" class="alert alert-success" style="display: none">Breed added successfully</div>
+            <div id="success-alert-delete" class="alert alert-success alert-add" style="display: none">Breed deleted successfully</div>
+            <div id="failure-alert" class="alert alert-danger" style="display: none">Oops, something went wrong</div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var breed in Model)
+                    {
+                        <tr>
+                            <td class="Id" id="@breed.Id">@Html.DisplayFor(modelItem => breed.Id)</td>
+                            <td>@Html.DisplayFor(modelItem => breed.Name)</td>
+                            <td>
+                                <button type="button" class="btn btn-danger">Delete</button>
+                            </td>
+                        </tr>
+                    }
+                    <form method="post">
+                        <tr>
+                            <td></td>
+                            <td>
+                                <div class="form-group">
+                                    <input class="form-control" name="Name" type="text" />
+                                </div>
+                            </td>
+                            <td>
+                                <input class="btn btn-success" type="submit" value="Add" />
+                            </td>
+                        </tr>
+                    </form>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    @section Scripts {
+        <script src="~/js/addNewBreed.js"></script>
+        <script src="~/js/deleteBreed.js"></script>
+    }
