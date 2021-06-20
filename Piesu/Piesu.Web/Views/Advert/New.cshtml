@@ -1,0 +1,27 @@
+@model DogModel
+
+<div id="success-alert" class="alert alert-success" style="display: none">Advert added successfully</div>
+<div id="failure-alert" class="alert alert-danger" style="display: none">Oops, something went wrong</div>
+
+<form method="POST">
+    <div class="form-group">
+        <label asp-for="Title">Advert title</label>
+        <input asp-for="Title" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Description">Describe what you're looking for</label>
+        <input asp-for="Description" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="DogId">Select puppy to which the advert applies to</label>
+        <select asp-for="DogId" asp-items="@ViewData["AvailableDogs"] as List<SelectListItem>" class="form-control" name="Dog"></select>
+    </div>
+    <div class="form-group">
+        <input class="btn btn-primary" type="submit" value="Add new advert!" />
+    </div>
+</form>
+
+@section Scripts {
+    <script src="~/js/addNewAdvert.js"></script>
+}
