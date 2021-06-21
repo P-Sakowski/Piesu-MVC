@@ -1,14 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Piesu.Web.Models;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Piesu.Web.Areas.Identity.Data;
+using Piesu.Web.Models;
+using System.Diagnostics;
+using System.Linq;
 
 namespace Piesu.Web.Controllers
 {
@@ -34,7 +31,7 @@ namespace Piesu.Web.Controllers
                 {
                     Title = advert.Title,
                     Description = advert.Description,
-                    CreatedDate = advert.CreatedDate,
+                    CreatedDate = advert.CreatedDate.ToString(),
                     DogName = _dbContext.Dogs.First(dog => dog.Id.ToString() == advert.DogId).Name
                 }).ToList();
 
@@ -47,6 +44,12 @@ namespace Piesu.Web.Controllers
         public IActionResult New()
         {
             var dogs = _dbContext.Dogs.Where(dog => dog.UserId == _userManager.GetUserId(User))
+                .OrderBy(dog => dog.Name)
+                .Select(dog => new SelectListItem
+                {
+                    Text = dog.Name + " - " + _dbContext.Breeds.FirstOrDefault(breed => breed.Id.ToString() == dog.BreedId).Name,
+                    Value = dog.Id.ToString()
+                }).ToList();
 
             ViewData["AvailableDogs"] = dogs;
 

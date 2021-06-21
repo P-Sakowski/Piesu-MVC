@@ -1,14 +1,11 @@
-using Microsoft.AspNetCore.Mvc;
-using Piesu.Web.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.Json;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 using Piesu.Web.Areas.Identity.Data;
-using Piesu.Web.Data;
 using Piesu.Web.Entities;
+using Piesu.Web.Models;
+using System;
+using System.Text.Json;
 
 namespace Piesu.Web.Controllers
 {
@@ -33,13 +30,13 @@ namespace Piesu.Web.Controllers
             var data = JObject.Parse(advertJson.ToString());
             var entity = new AdvertEntity
             {
-                Title = (string) data["title"],
-                Description = (string) data["description"],
-                DogId = (string) data["dog"],
+                Title = (string)data["title"],
+                Description = (string)data["description"],
+                DogId = (string)data["dog"],
                 UserId = currentUserId,
                 IsVerified = false,
                 IsActive = true,
-                CreatedDate = DateTime.Now;
+                CreatedDate = DateTime.Now
             };
 
             try

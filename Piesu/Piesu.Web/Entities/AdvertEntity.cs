@@ -1,3 +1,5 @@
+using System;
+
 namespace Piesu.Web.Entities
 {
     public class AdvertEntity

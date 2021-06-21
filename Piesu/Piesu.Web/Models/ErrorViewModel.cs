@@ -1,5 +1,3 @@
-using System;
-
 namespace Piesu.Web.Models
 {
     public class ErrorViewModel

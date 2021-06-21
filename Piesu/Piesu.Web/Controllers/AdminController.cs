@@ -3,11 +3,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Piesu.Web.Areas.Identity.Data;
 using Piesu.Web.Models;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Piesu.Web.Controllers
 {
