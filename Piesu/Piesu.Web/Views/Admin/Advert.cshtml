@@ -1,0 +1,31 @@
+﻿@model List<Piesu.Web.Models.AdvertViewModel>
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+<partial name="_AdminMenuPartial" />
+<div class="text-center">
+     <div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Title</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Dog name</th>
+                        <th scope="col">Added on</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var advert in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => advert.Title)</td>
+                            <td>@Html.DisplayFor(modelItem => advert.Description)</td>
+                            <td>@Html.DisplayFor(modelItem => advert.DogName)</td>
+                            <td>@Html.DisplayFor(modelItem => advert.CreatedDate)</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+</div>
