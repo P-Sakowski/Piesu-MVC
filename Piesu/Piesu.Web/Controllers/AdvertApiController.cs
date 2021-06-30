@@ -84,5 +84,32 @@ namespace Piesu.Web.Controllers
 
             return result;
         }
+
+        [HttpPut]
+        public ApproveAdvertResponse Approve([FromBody] JsonElement advert)
+        {
+            bool requestSuccessful;
+            var data = JObject.Parse(advert.ToString());
+            var id = (int)data["id"];
+            var entity = _dbContext.Adverts.Find(id);
+
+            try
+            {
+                entity.IsVerified = true;
+                _dbContext.SaveChanges();
+                requestSuccessful = true;
+            }
+            catch
+            {
+                requestSuccessful = false;
+            }
+
+            ApproveAdvertResponse result = new ApproveAdvertResponse
+            {
+                IsSuccessful = requestSuccessful
+            };
+
+            return result;
+        }
     }
 }

@@ -37,6 +37,7 @@ namespace Piesu.Web.Controllers
                 .OrderBy(advert => advert.CreatedDate)
                 .Select(advert => new AdvertViewModel
                 {
+                    Id = advert.Id,
                     Title = advert.Title,
                     Description = advert.Description,
                     CreatedDate = advert.CreatedDate.ToString(),

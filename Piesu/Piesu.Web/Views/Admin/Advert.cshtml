@@ -4,14 +4,19 @@
 }
 <partial name="_AdminMenuPartial" />
 <div class="text-center">
+     <div id="success-alert-approve" class="alert alert-success" style="display: none">Advert approved successfully</div>
+     <div id="success-alert-delete" class="alert alert-success alert-add" style="display: none">Advert deleted successfully</div>
+     <div id="failure-alert" class="alert alert-danger" style="display: none">Oops, something went wrong</div>
      <div>
             <table class="table">
                 <thead>
                     <tr>
+                        <th scope="col">Id</th>
                         <th scope="col">Title</th>
                         <th scope="col">Description</th>
                         <th scope="col">Dog name</th>
                         <th scope="col">Added on</th>
+                        <th scope="col">Action</th>
                     </tr>
                 </thead>
 
@@ -19,13 +24,22 @@
                     @foreach (var advert in Model)
                     {
                         <tr>
+                            <td>@Html.DisplayFor(modelItem => advert.Id)</td>
                             <td>@Html.DisplayFor(modelItem => advert.Title)</td>
                             <td>@Html.DisplayFor(modelItem => advert.Description)</td>
                             <td>@Html.DisplayFor(modelItem => advert.DogName)</td>
                             <td>@Html.DisplayFor(modelItem => advert.CreatedDate)</td>
+                            <td>
+                                <button data-id="@Html.DisplayFor(modelItem => advert.Id)" type="button" class="btn btn-success approve">Approve advert</button>
+                                <button data-id="@Html.DisplayFor(modelItem => advert.Id)" type="button" class="btn btn-danger delete">Delete advert</button>
+                            </td>
                         </tr>
                     }
                 </tbody>
             </table>
         </div>
 </div>
+@section Scripts {
+    <script src="~/js/approveAdvert.js"></script>
+    <script src="~/js/deleteAdvert.js"></script>
+}
