@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Piesu.Web.Models
+﻿namespace Piesu.Web.Models
 {
     public class DogModel
     {

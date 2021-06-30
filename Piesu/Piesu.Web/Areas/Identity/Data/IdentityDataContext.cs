@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Piesu.Web.Entities;
@@ -16,8 +11,9 @@ namespace Piesu.Web.Areas.Identity.Data
         {
         }
 
-        public DbSet<DogEntity> Dogs { get;  set; }
+        public DbSet<DogEntity> Dogs { get; set; }
         public DbSet<BreedEntity> Breeds { get; set; }
+        public DbSet<AdvertEntity> Adverts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

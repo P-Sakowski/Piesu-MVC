@@ -1,17 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
-using Piesu.Web.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.Json;
-using Microsoft.AspNetCore.Identity;
 using Newtonsoft.Json.Linq;
 using Piesu.Web.Areas.Identity.Data;
-using Piesu.Web.Data;
 using Piesu.Web.Entities;
+using Piesu.Web.Models;
+using System.Text.Json;
 
 namespace Piesu.Web.Controllers
-{    
+{
     [ApiController]
     [Route("api/[controller]")]
     public class BreedApiController : ControllerBase
@@ -22,7 +17,7 @@ namespace Piesu.Web.Controllers
         {
             _dbContext = dbContext;
         }
-        
+
         [HttpPost]
         public AddNewBreedResponse Post([FromBody] JsonElement breedJson)
         {
@@ -30,7 +25,7 @@ namespace Piesu.Web.Controllers
             var data = JObject.Parse(breedJson.ToString());
             var entity = new BreedEntity
             {
-                Name = (string) data["name"],
+                Name = (string)data["name"],
             };
 
             try

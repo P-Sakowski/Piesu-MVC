@@ -1,0 +1,35 @@
+﻿@model List<Piesu.Web.Models.AdvertViewModel>
+    @{
+        ViewData["Title"] = "Adverts";
+    }
+    <partial name="_AdvertMenuPartial"/>
+    <div class="text-center">
+        <h2>Announcements - let's take someone else's dog for a walk!</h2>
+
+        <div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Title</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Dog name</th>
+                        <th scope="col">Added on</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var advert in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => advert.Title)</td>
+                            <td>@Html.DisplayFor(modelItem => advert.Description)</td>
+                            <td>@Html.DisplayFor(modelItem => advert.DogName)</td>
+                            <td>@Html.DisplayFor(modelItem => advert.CreatedDate)</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <a class="btn btn-primary btn-lg btn-block" asp-area="" asp-controller="Advert" asp-action="New">Add your own advert</a>
+    </div>

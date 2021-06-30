@@ -1,19 +1,12 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
-using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Piesu.Web.Areas.Identity.Data;
-using Piesu.Web.Data;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Piesu.Web
@@ -79,7 +72,7 @@ namespace Piesu.Web
                 options.AccessDeniedPath = "/Identity/Account/AccessDenied";
                 options.SlidingExpiration = true;
             });
-    }
+        }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider services)
@@ -135,14 +128,14 @@ namespace Piesu.Web
             string AdminEmail = "admin@piesu.pl";
             string AdminPassword = "Password123#";
             ApplicationUser user = await UserManager.FindByEmailAsync(AdminEmail);
-            if(user == null)
+            if (user == null)
             {
                 user = new ApplicationUser { UserName = AdminEmail, Email = AdminEmail };
                 _ = await UserManager.CreateAsync(user, AdminPassword);
                 var code = await UserManager.GenerateEmailConfirmationTokenAsync(user);
                 _ = await UserManager.ConfirmEmailAsync(user, code);
             }
-            if(await UserManager.IsInRoleAsync(user, "Admin") == false)
+            if (await UserManager.IsInRoleAsync(user, "Admin") == false)
             {
                 await UserManager.AddToRoleAsync(user, "Admin");
             }
