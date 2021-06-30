@@ -38,6 +38,24 @@ namespace Piesu.Web.Controllers
             return View(adverts);
         }
 
+        [Authorize(Roles = "Admin, Moderator, User")]
+        public IActionResult CurrentUser()
+        {
+            var adverts = _dbContext.Adverts.Where(advert => advert.UserId == _userManager.GetUserId(User))
+                .Where(advert => advert.IsActive)
+                .Where(advert => advert.IsVerified)
+                .OrderBy(advert => advert.CreatedDate)
+                .Select(advert => new AdvertViewModel
+                {
+                    Title = advert.Title,
+                    Description = advert.Description,
+                    CreatedDate = advert.CreatedDate.ToString(),
+                    DogName = _dbContext.Dogs.First(dog => dog.Id.ToString() == advert.DogId).Name
+                }).ToList();
+
+            return View(adverts);
+        }
+
         [HttpGet]
         [Authorize(Roles = "Admin, Moderator, User")]
 
